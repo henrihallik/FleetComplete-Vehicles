@@ -46,7 +46,7 @@ class VehiclesListAdapter(private val vehiclesUpdates: VehiclesAllData, private 
                 e.printStackTrace()
             }
 
-            itemView.setOnClickListener{listener(adapterPosition)}
+            itemView.setOnClickListener{listener(vehicle.objectId)}
         }
     }
 }

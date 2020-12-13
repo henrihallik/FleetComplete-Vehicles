@@ -62,8 +62,6 @@ class VehiclesFragment : Fragment(), VehiclesHomeView {
         activity?.runOnUiThread {
             view?.recyclerView?.adapter = VehiclesListAdapter(arrVehicleUpdates) {
                 vehiclesHomePresenter.onItemClick(it)
-               // val action = VehiclesFragmentDirections..confirmationAction(amount)
-                findNavController().navigate(R.id.action_vehicles_list_to_map)
                 emptyView.visibility=View.GONE;
             }
         }
@@ -76,9 +74,10 @@ class VehiclesFragment : Fragment(), VehiclesHomeView {
         }
     }
 
-    override fun onItemClick(adapterPosition: Int) {
+    override fun onItemClick(objectId: Int) {
         activity?.runOnUiThread {
-            showToast(context!!, "You clicked $adapterPosition")
+            val action = VehiclesFragmentDirections.actionVehiclesListToMap(objectId)
+            findNavController().navigate(action)
         }
     }
 
