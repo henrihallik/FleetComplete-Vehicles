@@ -10,6 +10,7 @@ android {
     Properties properties = new Properties()
     properties.load(project.rootProject.file('local.properties').newDataInputStream())
     def fleetCompleteApiKey = properties.getProperty('fleetcomplete.api.key')
+    def googleMapsApiKey = properties.getProperty('googlemaps.api.key')
 
     defaultConfig {
         applicationId "com.fleetcomplete.vehicles"
@@ -23,9 +24,11 @@ android {
     buildTypes {
         debug{
             buildConfigField 'String', "FLEET_COMPLETE_API_KEY", "\""+fleetCompleteApiKey+"\""
+            manifestPlaceholders = [ google_map_key:googleMapsApiKey]
         }
         release {
             buildConfigField 'String', "FLEET_COMPLETE_API_KEY",  "\""+fleetCompleteApiKey+"\""
+            manifestPlaceholders = [ google_map_key:googleMapsApiKey]
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
@@ -49,6 +52,7 @@ dependencies {
     implementation deps.arch_core.runtime
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.amitshekhar.android:android-networking:1.0.1'
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
 
     // Navigation
     implementation deps.navigation.runtime_ktx
