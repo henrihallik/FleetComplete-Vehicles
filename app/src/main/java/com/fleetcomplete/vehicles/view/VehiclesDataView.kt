@@ -1,11 +1,11 @@
 package com.fleetcomplete.vehicles.view
 
-import com.fleetcomplete.vehicles.model.VehiclesAllData
+import com.fleetcomplete.vehicles.model.VehiclesData
 
-interface VehiclesHomeView {
+interface VehiclesDataView {
     fun showProgress()
     fun hideProgress()
-    fun setVehiclesData(arrVehicleUpdates: VehiclesAllData)
+    fun setVehiclesData(arrVehicleUpdates: VehiclesData)
     fun getDataFailed(strError: String)
     fun onItemClick(adapterPosition: Int)
 }

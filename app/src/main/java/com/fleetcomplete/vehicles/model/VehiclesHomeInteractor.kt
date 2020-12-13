@@ -14,7 +14,7 @@ class VehiclesHomeInteractor {
     }
 
     interface OnFinishedListener {
-        fun onResultSuccess(arrVehicleUpdates: VehiclesAllData)
+        fun onResultSuccess(arrVehicleUpdates: VehiclesData)
         fun onResultFail(strError: String)
     }
 
@@ -35,7 +35,7 @@ class VehiclesHomeInteractor {
             override fun onResponse(call: Call, response: Response) {
                 val responseBody = response.body()?.string()
                 if(!TextUtils.isEmpty(responseBody)){
-                    val vehiclesData = Gson().fromJson(responseBody, VehiclesAllData::class.java)
+                    val vehiclesData = Gson().fromJson(responseBody, VehiclesData::class.java)
                     if(vehiclesData.response!=null) {
                         onFinishedListener.onResultSuccess(vehiclesData)
                         return;

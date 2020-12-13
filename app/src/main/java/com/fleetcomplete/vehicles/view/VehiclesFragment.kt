@@ -23,22 +23,22 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.fleetcomplete.vehicles.R
-import com.fleetcomplete.vehicles.model.VehiclesAllData
+import com.fleetcomplete.vehicles.model.VehiclesData
 import com.fleetcomplete.vehicles.model.VehiclesHomeInteractor
-import com.fleetcomplete.vehicles.presenter.VehiclesHomePresenter
+import com.fleetcomplete.vehicles.presenter.VehiclesDataPresenter
 import com.fleetcomplete.vehicles.showToast
 import kotlinx.android.synthetic.main.fragment_vehicles.*
 import kotlinx.android.synthetic.main.fragment_vehicles.view.*
 
-class VehiclesFragment : Fragment(), VehiclesHomeView {
-    private lateinit var vehiclesHomePresenter: VehiclesHomePresenter
+class VehiclesFragment : Fragment(), VehiclesDataView {
+    private lateinit var vehiclesHomePresenter: VehiclesDataPresenter
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_vehicles, container, false)
 
-        vehiclesHomePresenter = VehiclesHomePresenter(this, VehiclesHomeInteractor())
+        vehiclesHomePresenter = VehiclesDataPresenter(this, VehiclesHomeInteractor())
         view.progressBar.visibility = View.GONE
         view.recyclerView.setHasFixedSize(true)
 
@@ -58,7 +58,7 @@ class VehiclesFragment : Fragment(), VehiclesHomeView {
         activity?.runOnUiThread { view?.progressBar?.visibility = View.GONE }
     }
 
-    override fun setVehiclesData(arrVehicleUpdates: VehiclesAllData) {
+    override fun setVehiclesData(arrVehicleUpdates: VehiclesData) {
         activity?.runOnUiThread {
             view?.recyclerView?.adapter = VehiclesListAdapter(arrVehicleUpdates) {
                 vehiclesHomePresenter.onItemClick(it)

@@ -8,7 +8,7 @@ import com.fleetcomplete.vehicles.R
 import com.fleetcomplete.vehicles.getTimeAgo
 import com.fleetcomplete.vehicles.inflate
 import com.fleetcomplete.vehicles.model.Response
-import com.fleetcomplete.vehicles.model.VehiclesAllData
+import com.fleetcomplete.vehicles.model.VehiclesData
 import kotlinx.android.synthetic.main.item_vehicles_list_recycler.view.*
 //import org.ocpsoft.prettytime.PrettyTime
 import java.text.ParseException
@@ -16,7 +16,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class VehiclesListAdapter(private val vehiclesUpdates: VehiclesAllData, private val listener: (Int) -> Unit) : RecyclerView.Adapter<VehiclesListAdapter.MyViewHolder>() {
+class VehiclesListAdapter(private val vehiclesUpdates: VehiclesData, private val listener: (Int) -> Unit) : RecyclerView.Adapter<VehiclesListAdapter.MyViewHolder>() {
     
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         return MyViewHolder(inflate(parent.context, R.layout.item_vehicles_list_recycler, parent, false))

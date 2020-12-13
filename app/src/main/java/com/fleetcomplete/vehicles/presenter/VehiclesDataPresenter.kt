@@ -1,10 +1,10 @@
 package com.fleetcomplete.vehicles.presenter
 
-import com.fleetcomplete.vehicles.model.VehiclesAllData
+import com.fleetcomplete.vehicles.model.VehiclesData
 import com.fleetcomplete.vehicles.model.VehiclesHomeInteractor
-import com.fleetcomplete.vehicles.view.VehiclesHomeView
+import com.fleetcomplete.vehicles.view.VehiclesDataView
 
-class VehiclesHomePresenter(private var vehiclesHomeView: VehiclesHomeView?, private val vehiclesHomeInteractor: VehiclesHomeInteractor)
+class VehiclesDataPresenter(private var vehiclesHomeView: VehiclesDataView?, private val vehiclesHomeInteractor: VehiclesHomeInteractor)
     : VehiclesHomeInteractor.OnFinishedListener {
 
     fun getNewData() {
@@ -16,7 +16,7 @@ class VehiclesHomePresenter(private var vehiclesHomeView: VehiclesHomeView?, pri
         vehiclesHomeView = null
     }
 
-    override fun onResultSuccess(arrVehicleUpdates: VehiclesAllData) {
+    override fun onResultSuccess(arrVehicleUpdates: VehiclesData) {
         vehiclesHomeView?.hideProgress()
         vehiclesHomeView?.setVehiclesData(arrVehicleUpdates)
     }
