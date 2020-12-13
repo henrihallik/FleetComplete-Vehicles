@@ -31,6 +31,6 @@ class MapFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
 
-        return inflater.inflate(R.layout.fragment_vehicles, container, false)
+        return inflater.inflate(R.layout.fragment_map, container, false)
     }
 }

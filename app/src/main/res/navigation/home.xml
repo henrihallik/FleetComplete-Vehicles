@@ -20,20 +20,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/home"
-    app:startDestination="@+id/titleScreen">
+    app:startDestination="@+id/vehiclesListScreen">
 
     <fragment
-        android:id="@+id/titleScreen"
+        android:id="@+id/vehiclesListScreen"
         android:name="com.fleetcomplete.vehicles.view.VehiclesFragment"
-        android:label="@string/title_home"
-        tools:layout="@layout/fragment_map">
+        android:label="@string/vehicles_list"
+        tools:layout="@layout/fragment_vehicles">
         <action
-            android:id="@+id/action_title_to_about"
-            app:destination="@id/aboutScreen"/>
+            android:id="@+id/action_vehicles_list_to_map"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:destination="@id/mapScreen"/>
     </fragment>
     <fragment
-        android:id="@+id/aboutScreen"
+        android:id="@+id/mapScreen"
         android:name="com.fleetcomplete.vehicles.view.MapFragment"
-        android:label="@string/title_about"
-        tools:layout="@layout/fragment_vehicles"/>
+        android:label="@string/Map"
+        tools:layout="@layout/fragment_map">
+        <argument
+            android:name="objectId"
+            app:argType="integer" />
+    </fragment>
 </navigation>

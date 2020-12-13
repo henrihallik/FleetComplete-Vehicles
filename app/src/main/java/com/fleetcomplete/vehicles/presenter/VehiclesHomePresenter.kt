@@ -7,7 +7,7 @@ import com.fleetcomplete.vehicles.view.VehiclesHomeView
 class VehiclesHomePresenter(private var vehiclesHomeView: VehiclesHomeView?, private val vehiclesHomeInteractor: VehiclesHomeInteractor)
     : VehiclesHomeInteractor.OnFinishedListener {
 
-    fun getNewsData() {
+    fun getNewData() {
         vehiclesHomeView?.showProgress()
         vehiclesHomeInteractor.requestVehiclesDataAPI(this)
     }

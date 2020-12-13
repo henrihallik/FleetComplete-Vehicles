@@ -51,7 +51,7 @@
             <LayoutPositions>
               <option name="myPositions">
                 <map>
-                  <entry key="aboutScreen">
+                  <entry key="mapScreen">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
@@ -63,7 +63,7 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="titleScreen">
+                  <entry key="vehiclesListScreen">
                     <value>
                       <LayoutPositions>
                         <option name="myPosition">
@@ -74,7 +74,7 @@
                         </option>
                         <option name="myPositions">
                           <map>
-                            <entry key="action_title_to_about">
+                            <entry key="action_vehicles_list_to_map">
                               <value>
                                 <LayoutPositions />
                               </value>

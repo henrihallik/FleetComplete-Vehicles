@@ -16,19 +16,18 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class VehiclesListAdapter(private val arrNewsUpdates: VehiclesAllData, private val listener: (Int) -> Unit) : RecyclerView.Adapter<VehiclesListAdapter.MyViewHolder>() {
-
+class VehiclesListAdapter(private val vehiclesUpdates: VehiclesAllData, private val listener: (Int) -> Unit) : RecyclerView.Adapter<VehiclesListAdapter.MyViewHolder>() {
+    
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         return MyViewHolder(inflate(parent.context, R.layout.item_vehicles_list_recycler, parent, false))
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.bind(arrNewsUpdates.response[position], listener)
+        holder.bind(vehiclesUpdates.response[position], listener)
     }
 
     override fun getItemCount(): Int {
-
-        return if(arrNewsUpdates.response!=null) arrNewsUpdates.response.size else 0
+        return if(vehiclesUpdates.response!=null) vehiclesUpdates.response.size else 0
     }
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

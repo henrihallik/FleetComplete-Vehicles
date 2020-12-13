@@ -20,8 +20,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.fleetcomplete.vehicles.R
 import com.fleetcomplete.vehicles.model.VehiclesAllData
 import com.fleetcomplete.vehicles.model.VehiclesHomeInteractor
@@ -32,7 +32,6 @@ import kotlinx.android.synthetic.main.fragment_vehicles.view.*
 
 class VehiclesFragment : Fragment(), VehiclesHomeView {
     private lateinit var vehiclesHomePresenter: VehiclesHomePresenter
-    private lateinit var vehiclesAdapter : VehiclesListAdapter
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -43,16 +42,12 @@ class VehiclesFragment : Fragment(), VehiclesHomeView {
         view.progressBar.visibility = View.GONE
         view.recyclerView.setHasFixedSize(true)
 
-        /**
-        view.findViewById<Button>(R.id.about_btn).setOnClickListener {
-            findNavController().navigate(R.id.action_title_to_about)
-        }*/
         return view
     }
 
     override fun onResume() {
         super.onResume()
-        vehiclesHomePresenter.getNewsData()
+        if(view?.recyclerView?.adapter==null) vehiclesHomePresenter.getNewData()
     }
 
     override fun showProgress() {
@@ -67,6 +62,8 @@ class VehiclesFragment : Fragment(), VehiclesHomeView {
         activity?.runOnUiThread {
             view?.recyclerView?.adapter = VehiclesListAdapter(arrVehicleUpdates) {
                 vehiclesHomePresenter.onItemClick(it)
+               // val action = VehiclesFragmentDirections..confirmationAction(amount)
+                findNavController().navigate(R.id.action_vehicles_list_to_map)
                 emptyView.visibility=View.GONE;
             }
         }
