@@ -72,9 +72,9 @@ class LocationHistoryFragment : Fragment(), OnMapReadyCallback, LocationHistoryV
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
 
-        //val sydney = LatLng(58.7, 25.7)
+        val estonia = LatLng(58.7, 25.7)
         //mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        //mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 10f))
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(estonia, 5f))
     }
 
     override fun showProgress() {
