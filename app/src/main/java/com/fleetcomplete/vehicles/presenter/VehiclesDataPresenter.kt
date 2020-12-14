@@ -1,11 +1,11 @@
 package com.fleetcomplete.vehicles.presenter
 
 import com.fleetcomplete.vehicles.model.VehiclesData
-import com.fleetcomplete.vehicles.model.VehiclesHomeInteractor
+import com.fleetcomplete.vehicles.model.VehiclesDataInteractor
 import com.fleetcomplete.vehicles.view.VehiclesDataView
 
-class VehiclesDataPresenter(private var vehiclesHomeView: VehiclesDataView?, private val vehiclesHomeInteractor: VehiclesHomeInteractor)
-    : VehiclesHomeInteractor.OnFinishedListener {
+class VehiclesDataPresenter(private var vehiclesHomeView: VehiclesDataView?, private val vehiclesHomeInteractor: VehiclesDataInteractor)
+    : VehiclesDataInteractor.OnFinishedListener {
 
     fun getNewData() {
         vehiclesHomeView?.showProgress()

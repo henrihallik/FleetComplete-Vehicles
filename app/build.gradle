@@ -53,6 +53,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'com.amitshekhar.android:android-networking:1.0.1'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'com.google.maps.android:android-maps-utils:2.2.0'
 
     // Navigation
     implementation deps.navigation.runtime_ktx

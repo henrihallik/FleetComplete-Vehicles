@@ -10,7 +10,7 @@
     android:layout_marginLeft="5dp"
     android:layout_marginRight="5dp"
     android:padding="10dp"
-    tools:context="com.fleetcomplete.vehicles.view.VehiclesFragment"
+    tools:context="com.fleetcomplete.vehicles.view.VehiclesDataFragment"
     android:background="#FFFFFF">
 
     <TextView

@@ -9,7 +9,7 @@
 
     <fragment
         android:id="@+id/vehiclesListScreen"
-        android:name="com.fleetcomplete.vehicles.view.VehiclesFragment"
+        android:name="com.fleetcomplete.vehicles.view.VehiclesDataFragment"
         android:label="@string/vehicles_list"
         tools:layout="@layout/fragment_vehicles">
         <action
@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/mapScreen"
-        android:name="com.fleetcomplete.vehicles.view.MapFragment"
+        android:name="com.fleetcomplete.vehicles.view.LocationHistoryFragment"
         android:label="@string/Map"
         tools:layout="@layout/fragment_map">
         <argument

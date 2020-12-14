@@ -24,13 +24,13 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.fleetcomplete.vehicles.R
 import com.fleetcomplete.vehicles.model.VehiclesData
-import com.fleetcomplete.vehicles.model.VehiclesHomeInteractor
+import com.fleetcomplete.vehicles.model.VehiclesDataInteractor
 import com.fleetcomplete.vehicles.presenter.VehiclesDataPresenter
 import com.fleetcomplete.vehicles.showToast
 import kotlinx.android.synthetic.main.fragment_vehicles.*
 import kotlinx.android.synthetic.main.fragment_vehicles.view.*
 
-class VehiclesFragment : Fragment(), VehiclesDataView {
+class VehiclesDataFragment : Fragment(), VehiclesDataView {
     private lateinit var vehiclesHomePresenter: VehiclesDataPresenter
 
     override fun onCreateView(
@@ -38,7 +38,7 @@ class VehiclesFragment : Fragment(), VehiclesDataView {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_vehicles, container, false)
 
-        vehiclesHomePresenter = VehiclesDataPresenter(this, VehiclesHomeInteractor())
+        vehiclesHomePresenter = VehiclesDataPresenter(this, VehiclesDataInteractor())
         view.progressBar.visibility = View.GONE
         view.recyclerView.setHasFixedSize(true)
 
@@ -60,7 +60,7 @@ class VehiclesFragment : Fragment(), VehiclesDataView {
 
     override fun setVehiclesData(arrVehicleUpdates: VehiclesData) {
         activity?.runOnUiThread {
-            view?.recyclerView?.adapter = VehiclesListAdapter(arrVehicleUpdates) {
+            view?.recyclerView?.adapter = VehiclesDataListAdapter(arrVehicleUpdates) {
                 vehiclesHomePresenter.onItemClick(it)
                 emptyView.visibility=View.GONE;
             }
@@ -76,7 +76,7 @@ class VehiclesFragment : Fragment(), VehiclesDataView {
 
     override fun onItemClick(objectId: Int) {
         activity?.runOnUiThread {
-            val action = VehiclesFragmentDirections.actionVehiclesListToMap(objectId)
+            val action = VehiclesDataFragmentDirections.actionVehiclesListToMap(objectId)
             findNavController().navigate(action)
         }
     }

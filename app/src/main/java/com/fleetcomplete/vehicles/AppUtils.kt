@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import java.util.*
 
-val MINUTE_MILLIS = 60000
-val HOUR_MILLIS = 3600000
-val DAY_MILLIS = 86400000
+const val MINUTE_MILLIS = 60000
+const val HOUR_MILLIS = 3600000
+const val DAY_MILLIS = 86400000
 
 fun inflate(context: Context, viewId: Int, parent: ViewGroup? = null, attachToRoot: Boolean = false): View {
     return LayoutInflater.from(context).inflate(viewId, parent, attachToRoot)

@@ -1,6 +1,5 @@
 package com.fleetcomplete.vehicles.view
 
-import android.annotation.SuppressLint
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -16,7 +15,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class VehiclesListAdapter(private val vehiclesUpdates: VehiclesData, private val listener: (Int) -> Unit) : RecyclerView.Adapter<VehiclesListAdapter.MyViewHolder>() {
+class VehiclesDataListAdapter(private val vehiclesUpdates: VehiclesData, private val listener: (Int) -> Unit) : RecyclerView.Adapter<VehiclesDataListAdapter.MyViewHolder>() {
     
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         return MyViewHolder(inflate(parent.context, R.layout.item_vehicles_list_recycler, parent, false))
@@ -31,7 +30,6 @@ class VehiclesListAdapter(private val vehiclesUpdates: VehiclesData, private val
     }
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        @SuppressLint("SetTextI18n")
         fun bind(vehicle: Response, listener: (Int) -> Unit) = with(itemView) {
             plateDriverName.text = "${vehicle.plate} / ${vehicle.driverName}"
             speed.text = "${vehicle.speed} km/h"
@@ -40,8 +38,8 @@ class VehiclesListAdapter(private val vehiclesUpdates: VehiclesData, private val
             //2020-12-13 02:50:11+0200
             val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ssZ")
             try {
-                val date: Date = sdf.parse(vehicle.timestamp)
-                dataAge.text = date.getTimeAgo()
+                val date: Date? = sdf.parse(vehicle.timestamp)
+                dataAge.text = date?.getTimeAgo()
             } catch (e: ParseException) {
                 e.printStackTrace()
             }

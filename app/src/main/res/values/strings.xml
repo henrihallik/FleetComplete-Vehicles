@@ -11,4 +11,6 @@
     <string name="cd_list">List</string>
     <string name="cd_form">Form</string>
     <string name="no_data_available">No data available</string>
+
+    <string name="distance_travelled">%f.f km</string>
 </resources>

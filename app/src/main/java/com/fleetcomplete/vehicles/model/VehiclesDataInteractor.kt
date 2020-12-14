@@ -8,9 +8,9 @@ import okhttp3.Response
 import java.io.IOException
 import java.net.URL
 
-class VehiclesHomeInteractor {
+class VehiclesDataInteractor {
     companion object {
-        private val TAG: String = VehiclesHomeInteractor::class.java.simpleName
+        private val TAG: String = VehiclesDataInteractor::class.java.simpleName
     }
 
     interface OnFinishedListener {

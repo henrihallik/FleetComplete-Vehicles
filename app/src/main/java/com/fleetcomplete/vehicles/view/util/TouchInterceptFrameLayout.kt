@@ -1,4 +1,4 @@
-package com.fleetcomplete.vehicles.view
+package com.fleetcomplete.vehicles.view.util
 
 import android.annotation.TargetApi
 import android.content.Context
