@@ -65,9 +65,6 @@ class VehiclesDataFragment : Fragment(), VehiclesDataView {
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        //enable menu
-        setHasOptionsMenu(true)
-
         requireActivity()
                 .onBackPressedDispatcher
                 .addCallback(this){
@@ -84,7 +81,6 @@ class VehiclesDataFragment : Fragment(), VehiclesDataView {
     }
 
     override fun setVehiclesData(vehiclesData: VehiclesData) {
-
         activity?.runOnUiThread {
             view?.recyclerView?.adapter = VehiclesDataListAdapter(vehiclesData) {
                 vehiclesHomePresenter.onItemClick(it)
