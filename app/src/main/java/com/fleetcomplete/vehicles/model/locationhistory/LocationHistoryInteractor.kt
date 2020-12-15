@@ -1,6 +1,7 @@
 package com.fleetcomplete.vehicles.model.locationhistory
 
 import android.text.TextUtils
+import com.fleetcomplete.vehicles.App.Companion.app
 import com.fleetcomplete.vehicles.BuildConfig
 import com.fleetcomplete.vehicles.DAY_MILLIS
 import com.fleetcomplete.vehicles.model.VehiclesData
@@ -25,7 +26,6 @@ class LocationHistoryInteractor {
     fun requestLocationHistory(onFinishedListener: OnFinishedListener, objectId : Int, date : Date) {
         val sdf = SimpleDateFormat("dd-MM-yyyy", Locale.US)
         val dayBefore = Date(date.time- DAY_MILLIS)
-        val client = OkHttpClient()
 
         val s = "https://app.ecofleet.com/seeme/Api/Vehicles/getRawData?key=${BuildConfig.FLEET_COMPLETE_API_KEY}" +
                 "&json=true?key=${BuildConfig.FLEET_COMPLETE_API_KEY}" +
@@ -41,7 +41,7 @@ class LocationHistoryInteractor {
                 .get()
                 .build()
 
-        client.newCall(request).enqueue(object : Callback {
+        app?.httpClient?.newCall(request)?.enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 onFinishedListener.onResultFail(e.message.toString())
             }

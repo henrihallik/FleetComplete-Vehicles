@@ -1,6 +1,7 @@
 package com.fleetcomplete.vehicles.model
 
 import android.text.TextUtils
+import com.fleetcomplete.vehicles.App.Companion.app
 import com.fleetcomplete.vehicles.BuildConfig
 import com.google.gson.Gson
 import okhttp3.*
@@ -19,7 +20,6 @@ class VehiclesDataInteractor {
     }
 
     fun requestVehiclesDataAPI(onFinishedListener: OnFinishedListener) {
-        val client = OkHttpClient()
         val s = "https://app.ecofleet.com/seeme/Api/Vehicles/getLastData?key=${BuildConfig.FLEET_COMPLETE_API_KEY}&json=true"
         val url = URL(s)
 
@@ -28,9 +28,9 @@ class VehiclesDataInteractor {
                 .get()
                 .build()
 
-        client.newCall(request).enqueue(object : Callback {
+        app?.httpClient?.newCall(request)?.enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                onFinishedListener.onResultFail("Something went wrong")
+                onFinishedListener.onResultFail(e.message.toString())
             }
             override fun onResponse(call: Call, response: Response) {
                 val responseBody = response.body()?.string()
@@ -41,7 +41,7 @@ class VehiclesDataInteractor {
                         return;
                     }
                 }
-                onFinishedListener.onResultFail("Something went wrong")
+                onFinishedListener.onResultFail("No data received")
             }
         })
     }
