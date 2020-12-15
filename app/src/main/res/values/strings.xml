@@ -15,5 +15,6 @@
     <string name="distance_travelled">Trip distance %.1f km</string>
     <string name="speed_with_unit">%d km/h</string>
     <string name="date">Date:</string>
-    <string name="location_history_failed">Failed to receive location history: </string>
+    <string name="location_history_failed">Failed to receive location history: %s</string>
+    <string name="location_history">Location history: %s</string>
 </resources>

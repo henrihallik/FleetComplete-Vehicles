@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.fleetcomplete.vehicles.R
@@ -21,8 +22,8 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.*
 import com.google.maps.android.SphericalUtil
 import com.google.maps.android.ui.IconGenerator
-import kotlinx.android.synthetic.main.fragment_map.*
-import kotlinx.android.synthetic.main.fragment_map.view.*
+import kotlinx.android.synthetic.main.fragment_location_history.*
+import kotlinx.android.synthetic.main.fragment_location_history.view.*
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -37,7 +38,7 @@ class LocationHistoryFragment : Fragment(), OnMapReadyCallback, LocationHistoryV
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        val v = inflater.inflate(R.layout.fragment_map, container, false)
+        val v = inflater.inflate(R.layout.fragment_location_history, container, false)
 
         v.mapView!!.onCreate(savedInstanceState)
         v?.mapView!!.getMapAsync(this)
@@ -63,6 +64,11 @@ class LocationHistoryFragment : Fragment(), OnMapReadyCallback, LocationHistoryV
                 .append(calendar[Calendar.YEAR]))
 
         locationHistoryPresenter.getNewData(args.objectId, latestDate as Date)
+
+        val appCompatActivity = activity as AppCompatActivity
+
+        appCompatActivity.supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_new_24)
+        appCompatActivity.supportActionBar?.title = appCompatActivity.getString(R.string.location_history, args.plate)
 
         return v
     }
@@ -105,11 +111,15 @@ class LocationHistoryFragment : Fragment(), OnMapReadyCallback, LocationHistoryV
     }
 
     override fun showProgress() {
-        //TODO
+        activity?.runOnUiThread{
+            progressBar?.visibility=View.VISIBLE
+        }
     }
 
     override fun hideProgress() {
-        //TODO
+        activity?.runOnUiThread{
+            progressBar?.visibility=View.GONE
+        }
     }
 
     override fun setLocationHistory(locationHistory: LocationHistory) {
@@ -166,7 +176,7 @@ class LocationHistoryFragment : Fragment(), OnMapReadyCallback, LocationHistoryV
 
     override fun getLocationHistoryFailed(strError: String) {
         activity?.runOnUiThread{
-            showToast(context!!, getString(R.string.location_history_failed)+strError, Toast.LENGTH_LONG)
+            showToast(context!!, getString(R.string.location_history_failed, strError), Toast.LENGTH_LONG)
         }
     }
 

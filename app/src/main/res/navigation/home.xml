@@ -11,7 +11,7 @@
         android:id="@+id/vehiclesListScreen"
         android:name="com.fleetcomplete.vehicles.view.VehiclesDataFragment"
         android:label="@string/vehicles_list"
-        tools:layout="@layout/fragment_vehicles">
+        tools:layout="@layout/fragment_vehicles_data">
         <action
             android:id="@+id/action_vehicles_list_to_map"
             app:enterAnim="@anim/slide_in_right"
@@ -33,7 +33,7 @@
         android:id="@+id/mapScreen"
         android:name="com.fleetcomplete.vehicles.view.LocationHistoryFragment"
         android:label="@string/Map"
-        tools:layout="@layout/fragment_map">
+        tools:layout="@layout/fragment_location_history">
         <argument
             android:name="objectId"
             app:argType="integer" />

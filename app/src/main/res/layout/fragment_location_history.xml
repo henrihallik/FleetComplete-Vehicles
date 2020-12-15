@@ -8,21 +8,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EEEEEE"
-    tools:context="com.fleetcomplete.vehicles.view.LocationHistoryFragment"
-    tools:layout_editor_absoluteY="81dp">
+    tools:context="com.fleetcomplete.vehicles.view.LocationHistoryFragment">
 
     <LinearLayout
         android:id="@+id/dateContainer"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/mapViewContainer"
         android:orientation="horizontal"
-        android:paddingTop="?android:attr/actionBarSize"
         android:gravity="center"
         android:background="#FFFFFF"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginBottom ="5dp">
+        android:layout_marginTop ="5dp"
+        android:elevation="2dp">
 
         <TextView
             android:id="@+id/dateText"
@@ -50,54 +50,51 @@
             android:layout_height="match_parent"
             app:srcCompat="@drawable/ic_baseline_calendar_today_24" />
 
-       <!--     <Button
-            android:id="@+id/dateText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="View 1"
-   />
-
-        <Button
-            android:id="@+id/dateInput"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="View 2"
-           />
-
-        <Button
-            android:id="@+id/calendarBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="View 3"
-           />-->
     </LinearLayout>
 
 
     <com.fleetcomplete.vehicles.view.util.TouchInterceptFrameLayout
         android:id="@+id/mapViewContainer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_marginTop ="5dp"
+        android:layout_height="0dp"
         app:layout_constraintTop_toBottomOf="@id/dateContainer"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:elevation="1dp">
 
         <com.google.android.gms.maps.MapView
             android:id="@+id/mapView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
+
     </com.fleetcomplete.vehicles.view.util.TouchInterceptFrameLayout>
 
     <TextView
         android:id="@+id/distanceTextView"
         android:textColor="#000000"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginBottom="15dp"
+        android:elevation="2dp"
         />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#99FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:padding="50dp"
+        style="?android:attr/progressBarStyleLarge"
+        app:layout_constraintTop_toTopOf="parent"
+        android:elevation="3dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

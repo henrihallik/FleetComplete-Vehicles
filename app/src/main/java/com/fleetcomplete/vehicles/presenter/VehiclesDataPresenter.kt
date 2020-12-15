@@ -17,9 +17,9 @@ class VehiclesDataPresenter(private var vehiclesDataView: VehiclesDataView?, pri
         vehiclesDataView = null
     }
 
-    override fun onResultSuccess(arrVehicleUpdates: VehiclesData) {
+    override fun onResultSuccess(vehiclesData: VehiclesData) {
         vehiclesDataView?.hideProgress()
-        vehiclesDataView?.setVehiclesData(arrVehicleUpdates)
+        vehiclesDataView?.setVehiclesData(vehiclesData)
     }
 
     override fun onResultFail(strError: String) {

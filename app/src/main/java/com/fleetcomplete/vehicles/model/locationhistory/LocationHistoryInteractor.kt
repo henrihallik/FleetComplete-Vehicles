@@ -34,13 +34,6 @@ class LocationHistoryInteractor {
                 "&endTimestamp=${sdf.format(date)}" +
                 "&objectId=$objectId"
 
-        /*
-        val s = "https://app.ecofleet.com/seeme/Api/Vehicles/getRawData?key=${BuildConfig.FLEET_COMPLETE_API_KEY}" +
-                "&json=true?key=${BuildConfig.FLEET_COMPLETE_API_KEY}" +
-                "&json=true" +
-                "&begTimestamp=2020-10-30" +
-                "&endTimestamp=2020-11-01" +
-                "&objectId=$objectId" */
         val url = URL(s)
 
         val request = Request.Builder()
@@ -50,7 +43,7 @@ class LocationHistoryInteractor {
 
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
-                onFinishedListener.onResultFail("Something went wrong")
+                onFinishedListener.onResultFail(e.message.toString())
             }
             override fun onResponse(call: Call, response: Response) {
                 val responseBody = response.body()?.string()
@@ -61,7 +54,7 @@ class LocationHistoryInteractor {
                         return;
                     }
                 }
-                onFinishedListener.onResultFail("Something went wrong")
+                onFinishedListener.onResultFail("No location history found")
             }
         })
     }

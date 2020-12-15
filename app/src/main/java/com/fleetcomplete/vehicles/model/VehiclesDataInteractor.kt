@@ -14,7 +14,7 @@ class VehiclesDataInteractor {
     }
 
     interface OnFinishedListener {
-        fun onResultSuccess(arrVehicleUpdates: VehiclesData)
+        fun onResultSuccess(vehiclesData: VehiclesData)
         fun onResultFail(strError: String)
     }
 

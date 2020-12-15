@@ -20,6 +20,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.fleetcomplete.vehicles.R
@@ -28,8 +29,8 @@ import com.fleetcomplete.vehicles.model.VehiclesData
 import com.fleetcomplete.vehicles.model.VehiclesDataInteractor
 import com.fleetcomplete.vehicles.presenter.VehiclesDataPresenter
 import com.fleetcomplete.vehicles.showToast
-import kotlinx.android.synthetic.main.fragment_vehicles.*
-import kotlinx.android.synthetic.main.fragment_vehicles.view.*
+import kotlinx.android.synthetic.main.fragment_vehicles_data.*
+import kotlinx.android.synthetic.main.fragment_vehicles_data.view.*
 
 class VehiclesDataFragment : Fragment(), VehiclesDataView {
     private lateinit var vehiclesHomePresenter: VehiclesDataPresenter
@@ -37,7 +38,7 @@ class VehiclesDataFragment : Fragment(), VehiclesDataView {
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_vehicles, container, false)
+        val view = inflater.inflate(R.layout.fragment_vehicles_data, container, false)
 
         vehiclesHomePresenter = VehiclesDataPresenter(this, VehiclesDataInteractor())
         view.progressBar.visibility = View.GONE
@@ -49,6 +50,10 @@ class VehiclesDataFragment : Fragment(), VehiclesDataView {
     override fun onResume() {
         super.onResume()
         if(view?.recyclerView?.adapter==null) vehiclesHomePresenter.getNewData()
+
+        val appCompatActivity = activity as AppCompatActivity
+        appCompatActivity.supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_refresh_24)
+        appCompatActivity.supportActionBar?.title = "Vehicles"
     }
 
     override fun showProgress() {
@@ -59,9 +64,10 @@ class VehiclesDataFragment : Fragment(), VehiclesDataView {
         activity?.runOnUiThread { view?.progressBar?.visibility = View.GONE }
     }
 
-    override fun setVehiclesData(arrVehicleUpdates: VehiclesData) {
+    override fun setVehiclesData(vehiclesData: VehiclesData) {
+
         activity?.runOnUiThread {
-            view?.recyclerView?.adapter = VehiclesDataListAdapter(arrVehicleUpdates) {
+            view?.recyclerView?.adapter = VehiclesDataListAdapter(vehiclesData) {
                 vehiclesHomePresenter.onItemClick(it)
                 emptyView.visibility=View.GONE;
             }
