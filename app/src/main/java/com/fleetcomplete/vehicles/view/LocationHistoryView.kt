@@ -6,7 +6,7 @@ import java.util.*
 interface LocationHistoryView {
     fun showProgress()
     fun hideProgress()
-    fun setLocationHistory(arrVehicleUpdates: LocationHistory)
+    fun setLocationHistory(locationHistory: LocationHistory)
     fun getLocationHistoryFailed(strError: String)
     fun onDateChanged(date : Date)
 }

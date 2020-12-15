@@ -23,12 +23,14 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.fleetcomplete.vehicles.MainActivity
 import com.fleetcomplete.vehicles.R
 import com.fleetcomplete.vehicles.model.Response
 import com.fleetcomplete.vehicles.model.VehiclesData
 import com.fleetcomplete.vehicles.model.VehiclesDataInteractor
 import com.fleetcomplete.vehicles.presenter.VehiclesDataPresenter
 import com.fleetcomplete.vehicles.showToast
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_vehicles_data.*
 import kotlinx.android.synthetic.main.fragment_vehicles_data.view.*
 
@@ -41,7 +43,6 @@ class VehiclesDataFragment : Fragment(), VehiclesDataView {
         val view = inflater.inflate(R.layout.fragment_vehicles_data, container, false)
 
         vehiclesHomePresenter = VehiclesDataPresenter(this, VehiclesDataInteractor())
-        view.progressBar.visibility = View.GONE
         view.recyclerView.setHasFixedSize(true)
 
         return view
@@ -57,11 +58,11 @@ class VehiclesDataFragment : Fragment(), VehiclesDataView {
     }
 
     override fun showProgress() {
-        activity?.runOnUiThread { view?.progressBar?.visibility = View.VISIBLE }
+        activity?.runOnUiThread { (activity as MainActivity).progressBar?.visibility = View.VISIBLE }
     }
 
     override fun hideProgress() {
-        activity?.runOnUiThread { view?.progressBar?.visibility = View.GONE }
+        activity?.runOnUiThread { (activity as MainActivity).progressBar?.visibility = View.GONE }
     }
 
     override fun setVehiclesData(vehiclesData: VehiclesData) {

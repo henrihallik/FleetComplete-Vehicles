@@ -84,17 +84,4 @@
         android:elevation="2dp"
         />
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#99FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:padding="50dp"
-        style="?android:attr/progressBarStyleLarge"
-        app:layout_constraintTop_toTopOf="parent"
-        android:elevation="3dp"/>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

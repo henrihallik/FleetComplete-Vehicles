@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
+import com.fleetcomplete.vehicles.MainActivity
 import com.fleetcomplete.vehicles.R
 import com.fleetcomplete.vehicles.model.locationhistory.LocationHistory
 import com.fleetcomplete.vehicles.model.locationhistory.LocationHistoryInteractor
@@ -22,6 +23,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.*
 import com.google.maps.android.SphericalUtil
 import com.google.maps.android.ui.IconGenerator
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_location_history.*
 import kotlinx.android.synthetic.main.fragment_location_history.view.*
 import java.text.ParseException
@@ -112,13 +114,13 @@ class LocationHistoryFragment : Fragment(), OnMapReadyCallback, LocationHistoryV
 
     override fun showProgress() {
         activity?.runOnUiThread{
-            progressBar?.visibility=View.VISIBLE
+            (activity as MainActivity).progressBar.visibility=View.VISIBLE
         }
     }
 
     override fun hideProgress() {
         activity?.runOnUiThread{
-            progressBar?.visibility=View.GONE
+            (activity as MainActivity).progressBar?.visibility=View.GONE
         }
     }
 

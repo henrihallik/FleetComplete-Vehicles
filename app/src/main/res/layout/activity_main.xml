@@ -26,4 +26,17 @@
         app:layout_constraintTop_toBottomOf="@id/toolbar"
         app:defaultNavHost="true"
         app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="#99FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        android:padding="50dp"
+        android:elevation="3dp"
+        style="?android:attr/progressBarStyleLarge"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
