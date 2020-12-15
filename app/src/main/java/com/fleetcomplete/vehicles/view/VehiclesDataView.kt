@@ -1,5 +1,6 @@
 package com.fleetcomplete.vehicles.view
 
+import com.fleetcomplete.vehicles.model.Response
 import com.fleetcomplete.vehicles.model.VehiclesData
 
 interface VehiclesDataView {
@@ -7,5 +8,5 @@ interface VehiclesDataView {
     fun hideProgress()
     fun setVehiclesData(arrVehicleUpdates: VehiclesData)
     fun getDataFailed(strError: String)
-    fun onItemClick(adapterPosition: Int)
+    fun onItemClick(vehicle: Response)
 }

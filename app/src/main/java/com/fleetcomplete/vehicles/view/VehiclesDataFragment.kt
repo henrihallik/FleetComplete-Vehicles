@@ -23,6 +23,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.fleetcomplete.vehicles.R
+import com.fleetcomplete.vehicles.model.Response
 import com.fleetcomplete.vehicles.model.VehiclesData
 import com.fleetcomplete.vehicles.model.VehiclesDataInteractor
 import com.fleetcomplete.vehicles.presenter.VehiclesDataPresenter
@@ -74,9 +75,9 @@ class VehiclesDataFragment : Fragment(), VehiclesDataView {
         }
     }
 
-    override fun onItemClick(objectId: Int) {
+    override fun onItemClick(vehicle: Response) {
         activity?.runOnUiThread {
-            val action = VehiclesDataFragmentDirections.actionVehiclesListToMap(objectId)
+            val action = VehiclesDataFragmentDirections.actionVehiclesListToMap(vehicle.objectId, vehicle.plate, vehicle.timestamp)
             findNavController().navigate(action)
         }
     }

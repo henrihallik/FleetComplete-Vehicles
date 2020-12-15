@@ -1,32 +1,33 @@
 package com.fleetcomplete.vehicles.presenter
 
+import com.fleetcomplete.vehicles.model.Response
 import com.fleetcomplete.vehicles.model.VehiclesData
 import com.fleetcomplete.vehicles.model.VehiclesDataInteractor
 import com.fleetcomplete.vehicles.view.VehiclesDataView
 
-class VehiclesDataPresenter(private var vehiclesHomeView: VehiclesDataView?, private val vehiclesHomeInteractor: VehiclesDataInteractor)
+class VehiclesDataPresenter(private var vehiclesDataView: VehiclesDataView?, private val vehiclesHomeInteractor: VehiclesDataInteractor)
     : VehiclesDataInteractor.OnFinishedListener {
 
     fun getNewData() {
-        vehiclesHomeView?.showProgress()
+        vehiclesDataView?.showProgress()
         vehiclesHomeInteractor.requestVehiclesDataAPI(this)
     }
 
     fun onDestroy() {
-        vehiclesHomeView = null
+        vehiclesDataView = null
     }
 
     override fun onResultSuccess(arrVehicleUpdates: VehiclesData) {
-        vehiclesHomeView?.hideProgress()
-        vehiclesHomeView?.setVehiclesData(arrVehicleUpdates)
+        vehiclesDataView?.hideProgress()
+        vehiclesDataView?.setVehiclesData(arrVehicleUpdates)
     }
 
     override fun onResultFail(strError: String) {
-        vehiclesHomeView?.hideProgress()
-        vehiclesHomeView?.getDataFailed(strError)
+        vehiclesDataView?.hideProgress()
+        vehiclesDataView?.getDataFailed(strError)
     }
 
-    fun onItemClick(adapterPosition: Int) {
-        vehiclesHomeView?.onItemClick(adapterPosition)
+    fun onItemClick(vehicle: Response) {
+        vehiclesDataView?.onItemClick(vehicle)
     }
 }

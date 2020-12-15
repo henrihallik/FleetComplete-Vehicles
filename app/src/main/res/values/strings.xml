@@ -12,5 +12,8 @@
     <string name="cd_form">Form</string>
     <string name="no_data_available">No data available</string>
 
-    <string name="distance_travelled">%f.f km</string>
+    <string name="distance_travelled">Trip distance %.1f km</string>
+    <string name="speed_with_unit">%d km/h</string>
+    <string name="date">Date:</string>
+    <string name="location_history_failed">Failed to receive location history: </string>
 </resources>

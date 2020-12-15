@@ -7,14 +7,80 @@
     android:id="@+id/title_constraint"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#EEEEEE"
     tools:context="com.fleetcomplete.vehicles.view.LocationHistoryFragment"
     tools:layout_editor_absoluteY="81dp">
+
+    <LinearLayout
+        android:id="@+id/dateContainer"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/mapViewContainer"
+        android:orientation="horizontal"
+        android:paddingTop="?android:attr/actionBarSize"
+        android:gravity="center"
+        android:background="#FFFFFF"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom ="5dp">
+
+        <TextView
+            android:id="@+id/dateText"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:textSize="15sp"
+            android:text="@string/date" />
+
+        <EditText
+            android:id="@+id/dateInput"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:focusableInTouchMode="true"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:ems="12"
+            android:inputType="date" />
+
+        <ImageView
+            android:id="@+id/calendarBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/ic_baseline_calendar_today_24" />
+
+       <!--     <Button
+            android:id="@+id/dateText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="View 1"
+   />
+
+        <Button
+            android:id="@+id/dateInput"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="View 2"
+           />
+
+        <Button
+            android:id="@+id/calendarBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="View 3"
+           />-->
+    </LinearLayout>
+
 
     <com.fleetcomplete.vehicles.view.util.TouchInterceptFrameLayout
         android:id="@+id/mapViewContainer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:ignore="MissingConstraints">
+        app:layout_constraintTop_toBottomOf="@id/dateContainer"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <com.google.android.gms.maps.MapView
             android:id="@+id/mapView"
@@ -31,6 +97,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="15dp"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

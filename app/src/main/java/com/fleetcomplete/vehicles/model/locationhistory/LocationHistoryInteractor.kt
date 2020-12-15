@@ -2,12 +2,14 @@ package com.fleetcomplete.vehicles.model.locationhistory
 
 import android.text.TextUtils
 import com.fleetcomplete.vehicles.BuildConfig
+import com.fleetcomplete.vehicles.DAY_MILLIS
 import com.fleetcomplete.vehicles.model.VehiclesData
 import com.google.gson.Gson
 import okhttp3.*
 import okhttp3.Response
 import java.io.IOException
 import java.net.URL
+import java.text.SimpleDateFormat
 import java.util.*
 
 class LocationHistoryInteractor {
@@ -16,26 +18,29 @@ class LocationHistoryInteractor {
     }
 
     interface OnFinishedListener {
-        fun onResultSuccess(arrVehicleUpdates: LocationHistory)
+        fun onResultSuccess(locationHistory: LocationHistory)
         fun onResultFail(strError: String)
     }
 
     fun requestLocationHistory(onFinishedListener: OnFinishedListener, objectId : Int, date : Date) {
-        /**
-        val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ssZ")
-        try {
-            val date: Date = sdf.parse(vehicle.timestamp)
-            dataAge.text = date.getTimeAgo()
-        } catch (e: ParseException) {
-            e.printStackTrace()
-        }*/
+        val sdf = SimpleDateFormat("dd-MM-yyyy", Locale.US)
+        val dayBefore = Date(date.time- DAY_MILLIS)
         val client = OkHttpClient()
+
+        val s = "https://app.ecofleet.com/seeme/Api/Vehicles/getRawData?key=${BuildConfig.FLEET_COMPLETE_API_KEY}" +
+                "&json=true?key=${BuildConfig.FLEET_COMPLETE_API_KEY}" +
+                "&json=true" +
+                "&begTimestamp=${sdf.format(dayBefore)}" +
+                "&endTimestamp=${sdf.format(date)}" +
+                "&objectId=$objectId"
+
+        /*
         val s = "https://app.ecofleet.com/seeme/Api/Vehicles/getRawData?key=${BuildConfig.FLEET_COMPLETE_API_KEY}" +
                 "&json=true?key=${BuildConfig.FLEET_COMPLETE_API_KEY}" +
                 "&json=true" +
                 "&begTimestamp=2020-10-30" +
                 "&endTimestamp=2020-11-01" +
-                "&objectId=$objectId"
+                "&objectId=$objectId" */
         val url = URL(s)
 
         val request = Request.Builder()
