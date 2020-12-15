@@ -16,10 +16,14 @@
 
 package com.fleetcomplete.vehicles.view
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
+import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -33,6 +37,7 @@ import com.fleetcomplete.vehicles.showToast
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_vehicles_data.*
 import kotlinx.android.synthetic.main.fragment_vehicles_data.view.*
+import java.lang.NullPointerException
 
 class VehiclesDataFragment : Fragment(), VehiclesDataView {
     private lateinit var vehiclesHomePresenter: VehiclesDataPresenter
@@ -55,6 +60,19 @@ class VehiclesDataFragment : Fragment(), VehiclesDataView {
         val appCompatActivity = activity as AppCompatActivity
         appCompatActivity.supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_refresh_24)
         appCompatActivity.supportActionBar?.title = "Vehicles"
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        //enable menu
+        setHasOptionsMenu(true)
+
+        requireActivity()
+                .onBackPressedDispatcher
+                .addCallback(this){
+                    vehiclesHomePresenter.getNewData()
+                }
     }
 
     override fun showProgress() {
@@ -93,4 +111,5 @@ class VehiclesDataFragment : Fragment(), VehiclesDataView {
         vehiclesHomePresenter.onDestroy()
         super.onDestroy()
     }
+
 }
