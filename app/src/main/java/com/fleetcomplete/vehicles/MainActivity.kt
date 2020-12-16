@@ -17,27 +17,31 @@
 package com.fleetcomplete.vehicles
 
 import android.annotation.SuppressLint
+import android.app.Dialog
+import android.content.Context
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.plusAssign
-import com.fleetcomplete.vehicles.view.VehiclesDataFragment
+import com.fleetcomplete.vehicles.App.Companion.app
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.dialog_key_entry.*
 
 
 class MainActivity : AppCompatActivity() {
     private var navController : NavController? = null
-    private var menu : Menu? = null
+    var menu : Menu? = null
 
-    @SuppressLint("RestrictedApi")
+    private val MyPREFERENCES = "MyPrefs"
+    private val KEY_FLEET_COMPLETE_API_KEY = "FLEET_COMPLETE_API_KEY"
+
+    @SuppressLint("RestrictedApi", "CommitPrefEdits")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -58,11 +62,18 @@ class MainActivity : AppCompatActivity() {
         controller.setGraph(R.navigation.home)
 
         navController = controller
+
+        val prefs: SharedPreferences =  getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE)
+        if(prefs.contains(KEY_FLEET_COMPLETE_API_KEY)){
+            app!!.fleetCompleteApiKey = prefs.getString(KEY_FLEET_COMPLETE_API_KEY,null).toString()
+        }
     }
 
     override fun onBackPressed() {
         if(navController?.currentDestination!!.id==R.id.vehiclesListScreen) {
             finish();
+        }else{
+            super.onBackPressed()
         }
     }
 
@@ -75,14 +86,28 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.my_menu,menu)
+        menuInflater.inflate(R.menu.my_menu, menu)
         this.menu = menu
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
         R.id.action_api_key -> {
-            Toast.makeText(this,"Print action", Toast.LENGTH_LONG).show()
+            val dialog = Dialog(this)
+            dialog.setContentView(R.layout.dialog_key_entry)
+            dialog.window?.setBackgroundDrawableResource(android.R.color.transparent);
+            dialog.keyInput.setText(app!!.fleetCompleteApiKey)
+            dialog.okBtn.setOnClickListener {
+                onBackPressedDispatcher.onBackPressed()
+                app!!.fleetCompleteApiKey = dialog.keyInput.text.toString()
+                dialog.dismiss()
+                onBackPressedDispatcher.onBackPressed()
+                val editor: SharedPreferences.Editor =  getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE).edit()
+                editor.putString(KEY_FLEET_COMPLETE_API_KEY, app!!.fleetCompleteApiKey)
+                editor.commit()
+            }
+            dialog.cancelBtn.setOnClickListener { dialog.dismiss() }
+            dialog.show()
             true
         }else -> {
             super.onOptionsItemSelected(item)

@@ -1,30 +1,18 @@
-/*
- * Copyright 2019, The Android Open Source Project
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.fleetcomplete.vehicles.view
 
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.widget.Adapter
 import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.fleetcomplete.vehicles.MainActivity
 import com.fleetcomplete.vehicles.R
 import com.fleetcomplete.vehicles.model.Response
@@ -57,6 +45,7 @@ class VehiclesDataFragment : Fragment(), VehiclesDataView {
         val appCompatActivity = activity as AppCompatActivity
         appCompatActivity.supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_refresh_24)
         appCompatActivity.supportActionBar?.title = appCompatActivity.getString(R.string.vehicles)
+        (appCompatActivity as MainActivity).menu?.findItem(R.id.action_api_key)?.isVisible = true
     }
 
     override fun onAttach(context: Context) {
@@ -70,18 +59,23 @@ class VehiclesDataFragment : Fragment(), VehiclesDataView {
     }
 
     override fun showProgress() {
-        activity?.runOnUiThread { (activity as MainActivity).progressBar?.visibility = View.VISIBLE }
+        activity?.runOnUiThread {
+            (activity as MainActivity).progressBar?.visibility = VISIBLE
+        }
     }
 
     override fun hideProgress() {
-        activity?.runOnUiThread { (activity as MainActivity).progressBar?.visibility = View.GONE }
+        activity?.runOnUiThread {
+            (activity as MainActivity).progressBar?.visibility = GONE
+        }
     }
 
     override fun setVehiclesData(vehiclesData: VehiclesData) {
         activity?.runOnUiThread {
+            view?.recyclerView?.visibility= VISIBLE
+            emptyView.visibility=GONE
             view?.recyclerView?.adapter = VehiclesDataListAdapter(vehiclesData) {
                 vehiclesHomePresenter.onItemClick(it)
-                emptyView.visibility=View.GONE;
             }
         }
     }
@@ -89,7 +83,8 @@ class VehiclesDataFragment : Fragment(), VehiclesDataView {
     override fun getDataFailed(strError: String) {
         activity?.runOnUiThread {
             showToast(context!!, strError)
-            emptyView.visibility=View.VISIBLE;
+            emptyView.visibility=VISIBLE
+            view?.recyclerView?.visibility=GONE
         }
     }
 

@@ -28,5 +28,4 @@
         android:visibility="gone"
         android:text="@string/no_data_available" />
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>

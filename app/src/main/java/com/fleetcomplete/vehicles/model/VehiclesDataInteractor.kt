@@ -2,7 +2,6 @@ package com.fleetcomplete.vehicles.model
 
 import android.text.TextUtils
 import com.fleetcomplete.vehicles.App.Companion.app
-import com.fleetcomplete.vehicles.BuildConfig
 import com.google.gson.Gson
 import okhttp3.*
 import okhttp3.Response
@@ -20,7 +19,7 @@ class VehiclesDataInteractor {
     }
 
     fun requestVehiclesDataAPI(onFinishedListener: OnFinishedListener) {
-        val s = "https://app.ecofleet.com/seeme/Api/Vehicles/getLastData?key=${BuildConfig.FLEET_COMPLETE_API_KEY}&json=true"
+        val s = "https://app.ecofleet.com/seeme/Api/Vehicles/getLastData?key=${app!!.fleetCompleteApiKey}&json=true"
         val url = URL(s)
 
         val request = Request.Builder()

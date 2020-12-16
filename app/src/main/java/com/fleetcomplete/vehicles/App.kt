@@ -7,6 +7,8 @@ class App : Application() {
     var httpClient: OkHttpClient? = null
         private set
 
+    var fleetCompleteApiKey = BuildConfig.FLEET_COMPLETE_API_KEY
+
     override fun onCreate() {
         super.onCreate()
         app = this

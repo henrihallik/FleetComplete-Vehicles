@@ -27,8 +27,7 @@ class LocationHistoryInteractor {
         val sdf = SimpleDateFormat("dd-MM-yyyy", Locale.US)
         val dayBefore = Date(date.time- DAY_MILLIS)
 
-        val s = "https://app.ecofleet.com/seeme/Api/Vehicles/getRawData?key=${BuildConfig.FLEET_COMPLETE_API_KEY}" +
-                "&json=true?key=${BuildConfig.FLEET_COMPLETE_API_KEY}" +
+        val s = "https://app.ecofleet.com/seeme/Api/Vehicles/getRawData?key=${app!!.fleetCompleteApiKey}" +
                 "&json=true" +
                 "&begTimestamp=${sdf.format(dayBefore)}" +
                 "&endTimestamp=${sdf.format(date)}" +
