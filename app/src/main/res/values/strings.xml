@@ -1,20 +1,15 @@
 <resources>
     <string name="app_name">FleetComplete Vehicles</string>
-    <string name="about">About</string>
-    <string name="welcome">Welcome!</string>
-    <string name="done">Done</string>
     <string name="Map">Map</string>
     <string name="vehicles_list">Vehicles list</string>
-    <string name="title_register">Register</string>
-    <string name="title_list">Leaderboard</string>
-    <string name="cd_home">Home</string>
-    <string name="cd_list">List</string>
-    <string name="cd_form">Form</string>
     <string name="no_data_available">No data available</string>
-
     <string name="distance_travelled">Trip distance %.1f km</string>
     <string name="speed_with_unit">%d km/h</string>
     <string name="date">Date:</string>
     <string name="location_history_failed">Failed to receive location history: %s</string>
     <string name="location_history">Location history: %s</string>
+    <string name="api_key">API key</string>
+    <string name="vehicles">Vehicles</string>
+    <string name="enter_api_key">Enter API key</string>
+    <string name="fleetcomplete_api_key">fleetcomplete api key</string>
 </resources>

@@ -71,6 +71,7 @@ class LocationHistoryFragment : Fragment(), OnMapReadyCallback, LocationHistoryV
 
         appCompatActivity.supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_new_24)
         appCompatActivity.supportActionBar?.title = appCompatActivity.getString(R.string.location_history, args.plate)
+        appCompatActivity.toolbar.menu.findItem(R.id.action_api_key).isVisible = true
 
         return v
     }

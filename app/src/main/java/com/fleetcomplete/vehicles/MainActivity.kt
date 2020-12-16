@@ -20,6 +20,9 @@ import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
@@ -32,6 +35,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
     private var navController : NavController? = null
+    private var menu : Menu? = null
 
     @SuppressLint("RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,6 +60,12 @@ class MainActivity : AppCompatActivity() {
         navController = controller
     }
 
+    override fun onBackPressed() {
+        if(navController?.currentDestination!!.id==R.id.vehiclesListScreen) {
+            finish();
+        }
+    }
+
     override fun onSupportNavigateUp(): Boolean {
         if(navController?.currentDestination!!.id==R.id.vehiclesListScreen) {
             onBackPressedDispatcher.onBackPressed()
@@ -64,5 +74,18 @@ class MainActivity : AppCompatActivity() {
         return navController?.navigateUp() ?: false
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.my_menu,menu)
+        this.menu = menu
+        return super.onCreateOptionsMenu(menu)
+    }
 
+    override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
+        R.id.action_api_key -> {
+            Toast.makeText(this,"Print action", Toast.LENGTH_LONG).show()
+            true
+        }else -> {
+            super.onOptionsItemSelected(item)
+        }
+    }
 }
