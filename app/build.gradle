@@ -23,12 +23,12 @@ android {
     }
     buildTypes {
         debug{
-            buildConfigField 'String', "FLEET_COMPLETE_API_KEY", "\""+fleetCompleteApiKey+"\""
-            manifestPlaceholders = [ google_map_key:googleMapsApiKey]
+            buildConfigField 'String', "FLEET_COMPLETE_API_KEY", "\""+(fleetCompleteApiKey!=null?fleetCompleteApiKey:"")+"\""
+            manifestPlaceholders = [ google_map_key:(googleMapsApiKey!=null?googleMapsApiKey:"")]
         }
         release {
-            buildConfigField 'String', "FLEET_COMPLETE_API_KEY",  "\""+fleetCompleteApiKey+"\""
-            manifestPlaceholders = [ google_map_key:googleMapsApiKey]
+            buildConfigField 'String', "FLEET_COMPLETE_API_KEY",  "\""+(fleetCompleteApiKey!=null?fleetCompleteApiKey:"")+"\""
+            manifestPlaceholders = [ google_map_key:(googleMapsApiKey!=null?googleMapsApiKey:"")]
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }

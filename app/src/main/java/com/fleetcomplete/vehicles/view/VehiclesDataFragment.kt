@@ -66,7 +66,7 @@ class VehiclesDataFragment : Fragment(), VehiclesDataView {
 
     override fun hideProgress() {
         activity?.runOnUiThread {
-            (activity as MainActivity).progressBar?.visibility = GONE
+           (activity as MainActivity).progressBar?.visibility = GONE
         }
     }
 

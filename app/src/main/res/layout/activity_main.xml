@@ -38,6 +38,7 @@
         app:layout_constraintTop_toBottomOf="@id/toolbar"
         android:padding="50dp"
         android:elevation="3dp"
-        style="?android:attr/progressBarStyleLarge"/>
+        style="?android:attr/progressBarStyleSmall"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
