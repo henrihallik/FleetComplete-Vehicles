@@ -115,15 +115,17 @@ class LocationHistoryFragment : Fragment(), OnMapReadyCallback, LocationHistoryV
     }
 
     override fun showProgress() {
+        /*
         activity?.runOnUiThread{
             (activity as MainActivity).progressBar.visibility=View.VISIBLE
-        }
+        }*/
     }
 
     override fun hideProgress() {
+        /*
         activity?.runOnUiThread{
             (activity as MainActivity).progressBar?.visibility=View.GONE
-        }
+        }*/
     }
 
     override fun setLocationHistory(locationHistory: LocationHistory) {

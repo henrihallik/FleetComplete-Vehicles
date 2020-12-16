@@ -60,13 +60,13 @@ class VehiclesDataFragment : Fragment(), VehiclesDataView {
 
     override fun showProgress() {
         activity?.runOnUiThread {
-            (activity as MainActivity).progressBar?.visibility = VISIBLE
+            progressBar?.visibility = VISIBLE
         }
     }
 
     override fun hideProgress() {
         activity?.runOnUiThread {
-           (activity as MainActivity).progressBar?.visibility = GONE
+           progressBar?.visibility = GONE
         }
     }
 

@@ -55,6 +55,7 @@ class MainActivity : AppCompatActivity() {
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_container) as NavHostFragment
         val controller = navHostFragment.navController
 
+
         // setup custom navigator
         val navigator = FragmentNavigator(this, navHostFragment.childFragmentManager, R.id.nav_host_container)
         controller.navigatorProvider += navigator
