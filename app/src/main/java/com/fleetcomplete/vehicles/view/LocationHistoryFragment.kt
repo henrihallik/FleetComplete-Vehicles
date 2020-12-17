@@ -15,6 +15,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.fleetcomplete.vehicles.MainActivity
 import com.fleetcomplete.vehicles.R
@@ -43,6 +44,7 @@ class LocationHistoryFragment : Fragment(), OnMapReadyCallback, LocationHistoryV
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
+        findNavController().currentDestination!!.id = R.id.mapScreen
         if(binding==null) {
             binding = inflater.inflate(R.layout.fragment_location_history, container, false)
 

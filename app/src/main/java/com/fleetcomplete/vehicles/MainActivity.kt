@@ -83,11 +83,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        if(navController?.currentDestination!!.id==R.id.vehiclesListScreen) {
-            onBackPressedDispatcher.onBackPressed()
-            return true
-        }
-        return navController?.navigateUp() ?: false
+        onBackPressedDispatcher.onBackPressed()
+        return true
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

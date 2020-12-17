@@ -31,6 +31,7 @@ class VehiclesDataFragment : Fragment(), VehiclesDataView {
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
+        findNavController().currentDestination!!.id = R.id.vehiclesListScreen
        if(binding==null){
            binding = inflater.inflate(R.layout.fragment_vehicles_data, container, false)
        }
