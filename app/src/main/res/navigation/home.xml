@@ -7,7 +7,7 @@
     android:id="@+id/home"
     app:startDestination="@+id/vehiclesListScreen">
 
-    <fragment
+    <keep_state_fragment
         android:id="@+id/vehiclesListScreen"
         android:name="com.fleetcomplete.vehicles.view.VehiclesDataFragment"
         android:label="@string/vehicles_list"
@@ -28,8 +28,8 @@
         <argument
             android:name="timestamp"
             app:argType="string" />
-    </fragment>
-    <fragment
+    </keep_state_fragment>
+    <keep_state_fragment
         android:id="@+id/mapScreen"
         android:name="com.fleetcomplete.vehicles.view.LocationHistoryFragment"
         android:label="@string/Map"
@@ -43,5 +43,5 @@
         <argument
             android:name="timestamp"
             app:argType="string" />
-    </fragment>
+    </keep_state_fragment>
 </navigation>

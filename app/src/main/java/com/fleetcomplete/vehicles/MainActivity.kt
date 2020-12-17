@@ -30,6 +30,7 @@ import androidx.navigation.fragment.FragmentNavigator
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.plusAssign
 import com.fleetcomplete.vehicles.App.Companion.app
+import com.fleetcomplete.vehicles.view.util.KeepStateNavigator
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.dialog_key_entry.*
 
@@ -57,7 +58,7 @@ class MainActivity : AppCompatActivity() {
 
 
         // setup custom navigator
-        val navigator = FragmentNavigator(this, navHostFragment.childFragmentManager, R.id.nav_host_container)
+        val navigator = KeepStateNavigator(this, navHostFragment.childFragmentManager, R.id.nav_host_container)
         controller.navigatorProvider += navigator
 
         controller.setGraph(R.navigation.home)

@@ -26,7 +26,6 @@ import kotlinx.android.synthetic.main.fragment_vehicles_data.view.*
 
 class VehiclesDataFragment : Fragment(), VehiclesDataView {
     private lateinit var vehiclesHomePresenter: VehiclesDataPresenter
-
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
