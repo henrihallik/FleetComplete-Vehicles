@@ -36,55 +36,56 @@ class LocationHistoryFragment : Fragment(), OnMapReadyCallback, LocationHistoryV
     private lateinit var map: GoogleMap
     private lateinit var locationHistoryPresenter: LocationHistoryPresenter
     private var latestDate: Date? = null
-
+    private var binding: View? = null
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        val v = inflater.inflate(R.layout.fragment_location_history, container, false)
+        if(binding==null) {
+            binding = inflater.inflate(R.layout.fragment_location_history, container, false)
 
-        v.mapView!!.onCreate(savedInstanceState)
-        v?.mapView!!.getMapAsync(this)
+            binding?.mapView!!.onCreate(savedInstanceState)
+            binding?.mapView!!.getMapAsync(this)
 
-        locationHistoryPresenter = LocationHistoryPresenter(this, LocationHistoryInteractor())
+            locationHistoryPresenter = LocationHistoryPresenter(this, LocationHistoryInteractor())
 
-        //2020-12-13 02:50:11+0200
-        val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ssZ", Locale.US)
-        var date: Date? = null
-        try {
-            date = sdf.parse(args.timestamp)
-        } catch (e: ParseException) {
-            e.printStackTrace()
+            //2020-12-13 02:50:11+0200
+            val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ssZ", Locale.US)
+            var date: Date? = null
+            try {
+                date = sdf.parse(args.timestamp)
+            } catch (e: ParseException) {
+                e.printStackTrace()
+            }
+
+            latestDate = date ?: Date(System.currentTimeMillis())
+
+            val calendar = Calendar.getInstance()
+            calendar.time = latestDate!!
+            binding?.dateInput?.setText(StringBuilder()
+                    .append(calendar[Calendar.DAY_OF_MONTH]).append("/")
+                    .append(calendar[Calendar.MONTH]).append("/")
+                    .append(calendar[Calendar.YEAR]))
+
+            locationHistoryPresenter.getNewData(args.objectId, latestDate as Date)
+
+            val appCompatActivity = activity as AppCompatActivity
+
+            appCompatActivity.supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_new_24)
+            appCompatActivity.supportActionBar?.title = appCompatActivity.getString(R.string.location_history, args.plate)
+            appCompatActivity.toolbar.menu.findItem(R.id.action_api_key)?.isVisible = true
+            (appCompatActivity as MainActivity).menu?.findItem(R.id.action_api_key)?.isVisible = false
         }
-
-        latestDate = date ?: Date(System.currentTimeMillis())
-
-        val calendar = Calendar.getInstance()
-        calendar.time=latestDate!!
-        v.dateInput?.setText(StringBuilder()
-                .append(calendar[Calendar.DAY_OF_MONTH]).append("/")
-                .append(calendar[Calendar.MONTH]).append("/")
-                .append(calendar[Calendar.YEAR]))
-
-        locationHistoryPresenter.getNewData(args.objectId, latestDate as Date)
-
-        val appCompatActivity = activity as AppCompatActivity
-
-        appCompatActivity.supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_ios_new_24)
-        appCompatActivity.supportActionBar?.title = appCompatActivity.getString(R.string.location_history, args.plate)
-        appCompatActivity.toolbar.menu.findItem(R.id.action_api_key).isVisible = true
-        (appCompatActivity as MainActivity).menu?.findItem(R.id.action_api_key)?.isVisible = false
-
-        return v
+        return binding
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        view?.mapView!!.onSaveInstanceState(outState)
+        binding?.mapView!!.onSaveInstanceState(outState)
     }
 
     override fun onResume() {
         super.onResume()
-        view?.mapView!!.onResume()
+        binding?.mapView!!.onResume()
         dateInput.setOnClickListener(this)
         calendarBtn.setOnClickListener(this)
         activity?.actionBar?.title=args.plate
@@ -94,18 +95,18 @@ class LocationHistoryFragment : Fragment(), OnMapReadyCallback, LocationHistoryV
         super.onPause()
         dateInput.setOnClickListener(null)
         calendarBtn.setOnClickListener(null)
-        view?.mapView!!.onPause()
+        binding?.mapView!!.onPause()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        view?.mapView?.onDestroy()
+        binding?.mapView?.onDestroy()
         locationHistoryPresenter.onDestroy()
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        view?.mapView!!.onLowMemory()
+        binding?.mapView!!.onLowMemory()
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -115,17 +116,11 @@ class LocationHistoryFragment : Fragment(), OnMapReadyCallback, LocationHistoryV
     }
 
     override fun showProgress() {
-        /*
-        activity?.runOnUiThread{
-            (activity as MainActivity).progressBar.visibility=View.VISIBLE
-        }*/
+
     }
 
     override fun hideProgress() {
-        /*
-        activity?.runOnUiThread{
-            (activity as MainActivity).progressBar?.visibility=View.GONE
-        }*/
+
     }
 
     override fun setLocationHistory(locationHistory: LocationHistory) {

@@ -24,22 +24,26 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_vehicles_data.*
 import kotlinx.android.synthetic.main.fragment_vehicles_data.view.*
 
+
 class VehiclesDataFragment : Fragment(), VehiclesDataView {
-    private lateinit var vehiclesHomePresenter: VehiclesDataPresenter
+    private var vehiclesHomePresenter: VehiclesDataPresenter? = null
+    private var binding : View? = null
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_vehicles_data, container, false)
+       if(binding==null){
+           binding = inflater.inflate(R.layout.fragment_vehicles_data, container, false)
+       }
 
         vehiclesHomePresenter = VehiclesDataPresenter(this, VehiclesDataInteractor())
-        view.recyclerView.setHasFixedSize(true)
+        binding?.recyclerView?.setHasFixedSize(true)
 
-        return view
+        return binding
     }
 
     override fun onResume() {
         super.onResume()
-        if(view?.recyclerView?.adapter==null) vehiclesHomePresenter.getNewData()
+        if(binding?.recyclerView?.adapter==null) vehiclesHomePresenter?.getNewData()
 
         val appCompatActivity = activity as AppCompatActivity
         appCompatActivity.supportActionBar?.setHomeAsUpIndicator(R.drawable.ic_baseline_refresh_24)
@@ -53,7 +57,7 @@ class VehiclesDataFragment : Fragment(), VehiclesDataView {
         requireActivity()
                 .onBackPressedDispatcher
                 .addCallback(this){
-                    vehiclesHomePresenter.getNewData()
+                    vehiclesHomePresenter?.getNewData()
                 }
     }
 
@@ -74,7 +78,7 @@ class VehiclesDataFragment : Fragment(), VehiclesDataView {
             view?.recyclerView?.visibility= VISIBLE
             emptyView.visibility=GONE
             view?.recyclerView?.adapter = VehiclesDataListAdapter(vehiclesData) {
-                vehiclesHomePresenter.onItemClick(it)
+                vehiclesHomePresenter?.onItemClick(it)
             }
         }
     }
@@ -95,7 +99,7 @@ class VehiclesDataFragment : Fragment(), VehiclesDataView {
     }
 
     override fun onDestroy() {
-        vehiclesHomePresenter.onDestroy()
+        vehiclesHomePresenter?.onDestroy()
         super.onDestroy()
     }
 

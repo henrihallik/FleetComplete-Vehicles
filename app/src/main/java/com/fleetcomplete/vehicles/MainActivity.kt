@@ -24,6 +24,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.FragmentNavigator
@@ -41,6 +42,8 @@ class MainActivity : AppCompatActivity() {
 
     private val MyPREFERENCES = "MyPrefs"
     private val KEY_FLEET_COMPLETE_API_KEY = "FLEET_COMPLETE_API_KEY"
+
+    private lateinit var binding : View
 
     @SuppressLint("RestrictedApi", "CommitPrefEdits")
     override fun onCreate(savedInstanceState: Bundle?) {

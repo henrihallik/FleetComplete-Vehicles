@@ -18,7 +18,8 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="${google_map_key}" />
-        <activity android:name="com.fleetcomplete.vehicles.MainActivity">
+        <activity android:name="com.fleetcomplete.vehicles.MainActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
