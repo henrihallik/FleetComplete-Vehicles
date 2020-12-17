@@ -51,7 +51,7 @@ dependencies {
     implementation deps.constraint_layout
     implementation deps.arch_core.runtime
     implementation 'com.google.code.gson:gson:2.8.6'
-    implementation 'com.amitshekhar.android:android-networking:1.0.1'
+    implementation("com.squareup.okhttp3:okhttp:4.9.0")
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'com.google.maps.android:android-maps-utils:2.2.0'
 

@@ -6,8 +6,10 @@ import com.fleetcomplete.vehicles.model.locationhistory.LocationHistory
 import com.fleetcomplete.vehicles.view.LocationHistoryView
 import java.util.*
 
-class LocationHistoryPresenter(private var locationHistoryView: LocationHistoryView?, private val locationHistoryInteractor: LocationHistoryInteractor)
+class LocationHistoryPresenter(private var locationHistoryView: LocationHistoryView?)
     : LocationHistoryInteractor.OnFinishedListener {
+
+    private val locationHistoryInteractor: LocationHistoryInteractor = LocationHistoryInteractor()
 
     fun getNewData(objectId : Int, date : Date) {
         locationHistoryView?.showProgress()

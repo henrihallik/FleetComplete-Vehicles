@@ -103,13 +103,12 @@ class MainActivity : AppCompatActivity() {
             dialog.window?.setBackgroundDrawableResource(android.R.color.transparent);
             dialog.keyInput.setText(app!!.fleetCompleteApiKey)
             dialog.okBtn.setOnClickListener {
-                onBackPressedDispatcher.onBackPressed()
                 app!!.fleetCompleteApiKey = dialog.keyInput.text.toString()
                 dialog.dismiss()
-                onBackPressedDispatcher.onBackPressed()
                 val editor: SharedPreferences.Editor =  getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE).edit()
                 editor.putString(KEY_FLEET_COMPLETE_API_KEY, app!!.fleetCompleteApiKey)
                 editor.commit()
+                onBackPressedDispatcher.onBackPressed()
             }
             dialog.cancelBtn.setOnClickListener { dialog.dismiss() }
             dialog.show()

@@ -9,10 +9,6 @@ import java.io.IOException
 import java.net.URL
 
 class VehiclesDataInteractor {
-    companion object {
-        private val TAG: String = VehiclesDataInteractor::class.java.simpleName
-    }
-
     interface OnFinishedListener {
         fun onResultSuccess(vehiclesData: VehiclesData)
         fun onResultFail(strError: String)
@@ -32,7 +28,7 @@ class VehiclesDataInteractor {
                 onFinishedListener.onResultFail(e.message.toString())
             }
             override fun onResponse(call: Call, response: Response) {
-                val responseBody = response.body()?.string()
+                val responseBody = response.body?.string()
                 if(!TextUtils.isEmpty(responseBody)){
                     val vehiclesData = Gson().fromJson(responseBody, VehiclesData::class.java)
                     if(vehiclesData.response!=null) {
@@ -40,7 +36,7 @@ class VehiclesDataInteractor {
                         return;
                     }
                 }
-                onFinishedListener.onResultFail("No data received")
+                onFinishedListener.onResultFail("No data available or invalid API key")
             }
         })
     }

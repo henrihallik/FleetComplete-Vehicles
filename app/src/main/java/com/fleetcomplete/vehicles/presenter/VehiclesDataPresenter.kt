@@ -5,12 +5,14 @@ import com.fleetcomplete.vehicles.model.VehiclesData
 import com.fleetcomplete.vehicles.model.VehiclesDataInteractor
 import com.fleetcomplete.vehicles.view.VehiclesDataView
 
-class VehiclesDataPresenter(private var vehiclesDataView: VehiclesDataView?, private val vehiclesHomeInteractor: VehiclesDataInteractor)
+class VehiclesDataPresenter(private var vehiclesDataView: VehiclesDataView?)
     : VehiclesDataInteractor.OnFinishedListener {
+
+    private val vehiclesDataInteractor : VehiclesDataInteractor = VehiclesDataInteractor()
 
     fun getNewData() {
         vehiclesDataView?.showProgress()
-        vehiclesHomeInteractor.requestVehiclesDataAPI(this)
+        vehiclesDataInteractor.requestVehiclesDataAPI(this)
     }
 
     fun onDestroy() {

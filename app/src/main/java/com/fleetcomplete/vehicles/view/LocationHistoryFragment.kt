@@ -1,7 +1,11 @@
 package com.fleetcomplete.vehicles.view
 
 import android.app.DatePickerDialog
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.PorterDuff
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,19 +13,18 @@ import android.view.ViewGroup
 import android.widget.DatePicker
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.getColor
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.fleetcomplete.vehicles.MainActivity
 import com.fleetcomplete.vehicles.R
 import com.fleetcomplete.vehicles.model.locationhistory.LocationHistory
-import com.fleetcomplete.vehicles.model.locationhistory.LocationHistoryInteractor
 import com.fleetcomplete.vehicles.presenter.LocationHistoryPresenter
 import com.fleetcomplete.vehicles.showToast
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.*
-import com.google.maps.android.SphericalUtil
 import com.google.maps.android.ui.IconGenerator
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_location_history.*
@@ -46,7 +49,7 @@ class LocationHistoryFragment : Fragment(), OnMapReadyCallback, LocationHistoryV
             binding?.mapView!!.onCreate(savedInstanceState)
             binding?.mapView!!.getMapAsync(this)
 
-            locationHistoryPresenter = LocationHistoryPresenter(this, LocationHistoryInteractor())
+            locationHistoryPresenter = LocationHistoryPresenter(this)
 
             //2020-12-13 02:50:11+0200
             val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ssZ", Locale.US)
@@ -128,36 +131,34 @@ class LocationHistoryFragment : Fragment(), OnMapReadyCallback, LocationHistoryV
             val lineOptions = PolylineOptions()
             val builder = LatLngBounds.Builder()
 
-            var distance = 0.00
+            //var distance = 0.00
             var previous : LatLng? = null
 
             locationHistory.response.forEach {
                 val position = LatLng(it.Latitude, it.Longitude)
-                if(previous==null) previous = position
-                distance += SphericalUtil.computeDistanceBetween(previous, position)
-                builder.include(position)
-                lineOptions.add(position)
-                previous=position;
+                previous = if(previous==null){
+                    position
+                }else {
+                    //distance += SphericalUtil.computeDistanceBetween(previous, position)
+                    builder.include(position)
+                    lineOptions.add(position)
+
+                    position
+                }
             }
 
             lineOptions.width(12f)
-            lineOptions.color(Color.BLUE)
+            lineOptions.color(getColor(context!!, R.color.azure))
             lineOptions.geodesic(true)
-
             map.addPolyline(lineOptions)
 
             var markerOptions = MarkerOptions()
             val start = LatLng(locationHistory.response[0].Latitude, locationHistory.response[0].Longitude)
             val end = LatLng(locationHistory.response[locationHistory.response.size - 1].Latitude, locationHistory.response[locationHistory.response.size - 1].Longitude)
 
-            markerOptions.position(start)
-            markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
-            markerOptions.title("Start")
-            map.addMarker(markerOptions);
-
-            //val iconFactory = IconGenerator(activity)
-            //iconFactory.setColor(Color.CYAN)
-            //addIcon(mMap, iconFactory, "Start", start)
+            val iconFactory = IconGenerator(activity)
+            iconFactory.setColor(Color.WHITE)
+            addIcon(map, iconFactory, "Start", start)
 
             markerOptions = MarkerOptions()
             markerOptions.position(end)
@@ -171,7 +172,8 @@ class LocationHistoryFragment : Fragment(), OnMapReadyCallback, LocationHistoryV
             map.setOnMapLoadedCallback {
                 map.animateCamera(cu)
             }
-            distanceTextView.text= getString(R.string.distance_travelled, distance/1000)
+
+            distanceTextView.text= getString(R.string.distance_travelled, locationHistory.response[locationHistory.response.size - 1].Distance - locationHistory.response[0].Distance)
         }
     }
 

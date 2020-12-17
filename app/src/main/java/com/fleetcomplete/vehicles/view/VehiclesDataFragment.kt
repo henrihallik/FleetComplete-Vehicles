@@ -35,7 +35,7 @@ class VehiclesDataFragment : Fragment(), VehiclesDataView {
            binding = inflater.inflate(R.layout.fragment_vehicles_data, container, false)
        }
 
-        vehiclesHomePresenter = VehiclesDataPresenter(this, VehiclesDataInteractor())
+        vehiclesHomePresenter = VehiclesDataPresenter(this)
         binding?.recyclerView?.setHasFixedSize(true)
 
         return binding

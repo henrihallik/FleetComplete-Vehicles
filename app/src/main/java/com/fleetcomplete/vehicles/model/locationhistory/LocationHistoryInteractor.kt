@@ -14,10 +14,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class LocationHistoryInteractor {
-    companion object {
-        private val TAG: String = LocationHistoryInteractor::class.java.simpleName
-    }
-
     interface OnFinishedListener {
         fun onResultSuccess(locationHistory: LocationHistory)
         fun onResultFail(strError: String)
@@ -45,7 +41,7 @@ class LocationHistoryInteractor {
                 onFinishedListener.onResultFail(e.message.toString())
             }
             override fun onResponse(call: Call, response: Response) {
-                val responseBody = response.body()?.string()
+                val responseBody = response.body?.string()
                 if(!TextUtils.isEmpty(responseBody)){
                     val locationHistory = Gson().fromJson(responseBody, LocationHistory::class.java)
                     if(locationHistory.response!=null) {
